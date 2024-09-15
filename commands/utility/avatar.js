@@ -1,22 +1,28 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
+let slashCommand = new SlashCommandBuilder()
+    .setName('avatar')
+    .setDescription('Get someones avatar')
+    .addUserOption((option) =>
+        option.setName('user')
+            .setDescription('The user you want the avatar of')
+        .setRequired(true)
+    );        
+
+slashCommand["integration_types"] = [0,1];
+slashCommand["contexts"] = [0, 1, 2];
+
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('avatar')
-        .setDescription('Get someones avatar')
-        .addUserOption((option) =>
-            option.setName('user')
-                .setDescription('The user you want the avatar to')
-            .setRequired(true)
-                ),
+    data: slashCommand,
     async execute(interaction)
     {
-        let user = interaction.options.getUser("user");
+        let user = await interaction.options.getUser("user").fetch();
         let userAvatar = user.displayAvatarURL({size: 4096, dynamic: true});
-        if (!interaction.guild) {colour = '#000000'} else {colour = interaction.guild.members.me.displayColor}
+        if (!interaction.guild) {colour = '#1B0252'} else {colour = interaction.guild.members.me.displayColor}
         
         const embed = new EmbedBuilder()
-        .setTitle(user.username)
+        .setAuthor({name: user.username, url: user.avatarURL()})
+        //.setTitle(user.username)
         .setURL(user.avatarURL())
         .setColor(colour)
         .setImage(userAvatar)

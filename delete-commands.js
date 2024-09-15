@@ -10,6 +10,6 @@ const commandFolders = fs.readdirSync(foldersPath);
 
 const rest = new REST().setToken(token);
 
-rest.delete(Routes.applicationGuildCommand(clientId, '441110395999223810', '1178984722064494624'))
-	.then(() => console.log('Successfully deleted guild command'))
+rest.delete(Routes.applicationCommand(clientId, '1260558666663329832')) //Remember to add command id here
+	.then(() => console.log('Successfully deleted application command'))
 	.catch(console.error);
