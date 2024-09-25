@@ -27,7 +27,7 @@ for (const folder of commandFolders) {
 }
 
 client.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) return;
+	//if (!interaction.isChatInputCommand()) return;
 	if (blockedUsers.includes(interaction.user.id)) return;
 
 	const command = interaction.client.commands.get(interaction.commandName);
