@@ -41,9 +41,11 @@ module.exports = {
                     .setDescription(`Score | ${randomPost.score.total}`)
                     .setColor('#2F64B4')
                     .setImage(randomPost.file.url)
+                    .setFooter({text: 'Tags: ' + interaction.options.getString('tags')})
                     .setTimestamp();
         
                     interaction.reply({ embeds: [embed] });
+                    //console.log(interaction.options.getString('tags'))
             })
             .catch(error => {
                 console.error(error);

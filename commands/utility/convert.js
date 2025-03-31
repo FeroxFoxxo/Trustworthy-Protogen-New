@@ -103,8 +103,6 @@ async function thing(interaction){
 	var KtoP = message.replace(/\d+(\.\d+)?/g, (match) => {
 		return Math.round(parseInt(match) / 0.45359237 * 100) / 100; //KG to Pounds
 	});
-	
-	
 //#endregion
 
 	const selection = await interaction.reply({
