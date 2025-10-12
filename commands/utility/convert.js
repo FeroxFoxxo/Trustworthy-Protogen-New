@@ -74,7 +74,7 @@ async function thing(interaction){
 		return Math.round((parseInt(match) -32) / 1.8 * 100) / 100; //f to c
 	});
 	var CtoF = message.replace(/\d+(\.\d+)?/g, (match) => {
-		return Math.round(parseInt(match) * 1.8 + 32 * 100) / 100; //c to f
+		Math.round((parseFloat(match) * 1.8 + 32) * 100) / 100; //c to f
 	});
 	var ItoCm = message.replace(/\d+(\.\d+)?/g, (match) => {
 		return Math.round(parseInt(match) * 2.54 * 100) / 100; //Cm to Inch

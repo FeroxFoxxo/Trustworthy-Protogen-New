@@ -26,7 +26,7 @@ module.exports = {
         
                 posts = posts.filter(post => {
                     for (let tag of post.tags["general"]) {
-                        if (blacklist[tag]) return false;
+                        if (blacklist.includes(tag)) return false;
                     }
                     return true;
                 });
