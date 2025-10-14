@@ -11,7 +11,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: feroxfoxxo/trustworthy-protogen-new
+  IMAGE_NAME: dingledangledoff/trustworthy-protogen-new
 
 jobs:
   build-and-push:
