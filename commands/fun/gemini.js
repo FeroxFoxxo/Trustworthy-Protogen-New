@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { geminiAPI } = require('../../config.json');
+const { get } = require('../../config');
+
+const geminiAPI = get('GEMINI_API', '');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(geminiAPI);
 
@@ -40,7 +42,7 @@ module.exports = {
             },
           ];
           
-
+          
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", safetySetting });
 
         const chat = model.startChat({history: []});

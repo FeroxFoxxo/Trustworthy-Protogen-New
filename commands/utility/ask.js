@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 const WolframAlphaAPI = require('wolfram-alpha-node');
-const { wolframAPI } = require('../../config.json');
+const { get } = require('../../config');
+
+const wolframAPI = get('WOLFRAM_API', '');
 const waApi = WolframAlphaAPI(wolframAPI);
 
 let slashCommand = new SlashCommandBuilder()
