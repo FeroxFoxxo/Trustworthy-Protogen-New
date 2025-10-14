@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   bot:
     image: ghcr.io/dingledangledoff/trustworthy-protogen-new:latest
