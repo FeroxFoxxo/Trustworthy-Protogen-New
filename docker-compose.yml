@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   bot:
-    image: ghcr.io/feroxfoxxo/trustworthy-protogen-new:latest
+    image: ghcr.io/dingledangledoff/trustworthy-protogen-new:latest
     container_name: trustworthy-protogen-bot
     restart: unless-stopped
     environment:
