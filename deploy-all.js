@@ -1,13 +1,15 @@
 import { REST, Routes, SlashCommandBuilder } from 'discord.js';
-import { getRequired } from './config.js';
+import { getRequired, getDir } from './config.js';
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const clientId = getRequired('CLIENT_ID');
 const token = getRequired('TOKEN');
 
 const commands = [];
-const foldersPath = join(__dirname, 'commands');
+const BASE_DIR = getDir(import.meta.url);
+const foldersPath = join(BASE_DIR, 'commands');
 const commandFolders = readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
@@ -15,7 +17,8 @@ for (const folder of commandFolders) {
 	const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
 		const filePath = join(commandsPath, file);
-		const command = require(filePath);
+		const commandModule = await import(pathToFileURL(filePath).href);
+		const command = commandModule.default ?? commandModule;
 		if ('data' in command && 'execute' in command) {
 			if (command.data instanceof SlashCommandBuilder){
 				commands.push(command.data.toJSON());

@@ -1,7 +1,8 @@
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { Client, Collection, Events, GatewayIntentBits, ActivityType } from 'discord.js';
-import { getArray, getRequired } from './config.js';
+import { getArray, getRequired, getDir } from './config.js';
 
 const token = getRequired('TOKEN');
 const blockedUsers = getArray('BLOCKED_USERS', []);
@@ -11,7 +12,8 @@ export default client;
 
 client.commands = new Collection();
 
-const foldersPath = join(__dirname, 'commands');
+const BASE_DIR = getDir(import.meta.url);
+const foldersPath = join(BASE_DIR, 'commands');
 const commandFolders = readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
@@ -19,7 +21,8 @@ for (const folder of commandFolders) {
 	const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
 		const filePath = join(commandsPath, file);
-		const command = require(filePath);
+		const commandModule = await import(pathToFileURL(filePath).href);
+		const command = commandModule.default ?? commandModule;
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
 		} else {
