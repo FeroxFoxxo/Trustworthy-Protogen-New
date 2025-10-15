@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from 'discord.js';
 import { getRequired } from '../../config.js';
 
-const geminiAPI = getRequired('GEMINI_API');
+const geminiAPI = getRequired('geminiAPI');
 import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(geminiAPI);
 
