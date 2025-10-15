@@ -8,6 +8,8 @@ services:
       - BLOCKED_USERS=${BLOCKED_USERS}
       - WOLFRAM_API=${WOLFRAM_API}
       - GEMINI_API=${GEMINI_API}
+      - CLIENT_ID=${CLIENT_ID}
+      - GUILD_ID=${GUILD_ID}
       - DATA_DIR=/data
     volumes:
       - ./data:/data
