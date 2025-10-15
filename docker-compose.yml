@@ -1,0 +1,13 @@
+services:
+  bot:
+    image: ghcr.io/dingledangledoff/trustworthy-protogen-new:latest
+    container_name: trustworthy-protogen-bot
+    restart: unless-stopped
+    environment:
+      - TOKEN=${TOKEN}
+      - BLOCKED_USERS=${BLOCKED_USERS}
+      - WOLFRAM_API=${WOLFRAM_API}
+      - GEMINI_API=${GEMINI_API}
+      - DATA_DIR=/data
+    volumes:
+      - ./data:/data

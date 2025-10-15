@@ -1,8 +1,10 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require('discord.js');
-const { token, blockedUsers } = require('./config.json');
+const { get, getArray } = require('./config');
 
+const token = get('TOKEN');
+const blockedUsers = getArray('BLOCKED_USERS', []);
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 module.exports = client;

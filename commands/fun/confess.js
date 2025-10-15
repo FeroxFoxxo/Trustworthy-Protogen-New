@@ -4,8 +4,34 @@ const client = require(process.cwd() + "/index.js");
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.join(__dirname, 'confessions', 'confesscount.json');
-const file = require(filePath);
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'confessions');
+
+const ensureDir = (p) => {
+    if (!fs.existsSync(p)) {
+        fs.mkdirSync(p, { recursive: true });
+    }
+};
+
+ensureDir(DATA_DIR);
+ensureDir(path.join(DATA_DIR, 'sfw'));
+ensureDir(path.join(DATA_DIR, 'nsfw'));
+
+const filePath = path.join(DATA_DIR, 'confesscount.json');
+
+let file;
+
+try {
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    file = JSON.parse(raw);
+    if (typeof file !== 'object' || file === null) throw new Error('Invalid JSON');
+    file.sfw = Number.isInteger(file.sfw) ? file.sfw : 1;
+    file.nsfw = Number.isInteger(file.nsfw) ? file.nsfw : 1;
+} catch (e) {
+    file = { sfw: 1, nsfw: 1 };
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(file, null, 2));
+    } catch (_) {}
+}
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -69,7 +95,7 @@ module.exports = {
                 interaction.reply('You cannot send a blank message!');
             } else {
                 const confessionNumber = number;
-                const userFilePath = path.join(__dirname, 'confessions', interaction.options.getString('explicitness'), `${confessionNumber}.txt`);
+                const userFilePath = path.join(DATA_DIR, interaction.options.getString('explicitness'), `${confessionNumber}.txt`);
                 fs.writeFileSync(userFilePath, interaction.user.id, 'utf-8');
             
                 //let server = await client.guilds.fetch('441110395999223810');
@@ -86,9 +112,11 @@ module.exports = {
                     file.sfw += 1;
                   }
             
-                fs.writeFileSync(filePath, JSON.stringify(file), (err) => {
-                    if (err) console.log(err);
-                });
+                try {
+                    fs.writeFileSync(filePath, JSON.stringify(file, null, 2));
+                } catch (err) {
+                    console.log(err);
+                }
             }
         }
     },
