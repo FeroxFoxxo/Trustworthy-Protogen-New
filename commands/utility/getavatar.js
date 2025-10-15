@@ -1,4 +1,4 @@
-const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require('discord.js');
+import { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } from 'discord.js';
 
 const interaction = new ContextMenuCommandBuilder()
     .setName("Get Avatar")
@@ -23,7 +23,5 @@ function thing(interaction){
     interaction.reply({embeds: [embed]});
 }
 
-module.exports = {
-    data: interaction,
-    execute: thing
-}
+export const data = interaction;
+export const execute = thing;

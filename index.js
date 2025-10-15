@@ -1,24 +1,24 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require('discord.js');
-const { get, getArray } = require('./config');
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { Client, Collection, Events, GatewayIntentBits, ActivityType } from 'discord.js';
+import { getArray, getRequired } from './config';
 
-const token = get('TOKEN');
+const token = getRequired('TOKEN');
 const blockedUsers = getArray('BLOCKED_USERS', []);
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-module.exports = client;
+export default client;
 
 client.commands = new Collection();
 
-const foldersPath = path.join(__dirname, 'commands');
-const commandFolders = fs.readdirSync(foldersPath);
+const foldersPath = join(__dirname, 'commands');
+const commandFolders = readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
-	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+	const commandsPath = join(foldersPath, folder);
+	const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
+		const filePath = join(commandsPath, file);
 		const command = require(filePath);
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
@@ -62,6 +62,8 @@ client.on("ready", () => {
         state: "Getting worked on so if I don't respond, just try again later"
     })
 });
+
+console.log(`Logging in with token ${token}`);
 
 client.login(token);
 

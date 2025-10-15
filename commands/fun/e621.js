@@ -1,6 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 
-const axios = require('axios');
+import { get } from 'axios';
 const blacklist = ['young', 'loli', 'scat', 'watersports', 'puke', 'fart'];
 
 let slashCommand = new SlashCommandBuilder()
@@ -16,24 +16,22 @@ slashCommand["integration_types"] = [0];
 slashCommand["contexts"] = [0, 1, 2];
 
 
-module.exports = {
-  data: slashCommand,
-  async execute(interaction){
+export const data = slashCommand;
+export async function execute(interaction) {
     {
-    axios.get(`https://e621.net/posts.json?tags=${interaction.options.getString('tags')}`, { headers: { 'User-Agent': 'e6-f/1.0' } })
+        get(`https://e621.net/posts.json?tags=${interaction.options.getString('tags')}`, { headers: { 'User-Agent': 'e6-f/1.0' } })
             .then(response => {
                 let posts = response.data["posts"];
-        
+
                 posts = posts.filter(post => {
                     for (let tag of post.tags["general"]) {
                         if (blacklist.includes(tag)) return false;
                     }
                     return true;
                 });
-        
+
                 const randomPost = posts[Math.round(Math.random() * posts.length)];
                 // const randomPost = posts;
-        
                 const embed = new EmbedBuilder()
                     .setAuthor({ name: 'e621', url: 'https://e621.net/', iconURL: 'https://e621.net/favicon.ico' })
                     .setTitle('View on e621')
@@ -41,16 +39,14 @@ module.exports = {
                     .setDescription(`Score | ${randomPost.score.total}`)
                     .setColor('#2F64B4')
                     .setImage(randomPost.file.url)
-                    .setFooter({text: 'Tags: ' + interaction.options.getString('tags')})
+                    .setFooter({ text: 'Tags: ' + interaction.options.getString('tags') })
                     .setTimestamp();
-        
-                    interaction.reply({ embeds: [embed] });
-                    //console.log(interaction.options.getString('tags'))
+
+                interaction.reply({ embeds: [embed] });
             })
             .catch(error => {
                 console.error(error);
                 interaction.reply('Error fetching data from e621.');
             });
     }
-  }
 }

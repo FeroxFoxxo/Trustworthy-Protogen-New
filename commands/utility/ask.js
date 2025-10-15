@@ -1,8 +1,8 @@
-const { SlashCommandBuilder } = require('discord.js');
-const WolframAlphaAPI = require('wolfram-alpha-node');
-const { get } = require('../../config');
+import { SlashCommandBuilder } from 'discord.js';
+import WolframAlphaAPI from 'wolfram-alpha-node';
+import { getRequired } from '../../config';
 
-const wolframAPI = get('WOLFRAM_API', '');
+const wolframAPI = getRequired('WOLFRAM_API');
 const waApi = WolframAlphaAPI(wolframAPI);
 
 let slashCommand = new SlashCommandBuilder()
@@ -16,16 +16,13 @@ let slashCommand = new SlashCommandBuilder()
     slashCommand["integration_types"] = [0,1];
     slashCommand["contexts"] = [0, 1, 2];
 
-module.exports = {
-    data:slashCommand,
-    async execute(interaction)
-    {
-        try{
-            //console.log(await waApi.getFull(question))
-            interaction.reply(`-# Question: ${interaction.options.getString('question')}\n${await waApi.getShort(interaction.options.getString('question'))}`)
-        }catch(e){
-            //console.log(e.message)
-            interaction.reply('I did not understand what you where trying to say, try asking another question. ' + e.message)
-        }
-    },
+export const data = slashCommand;
+export async function execute(interaction) {
+    try {
+        //console.log(await waApi.getFull(question))
+        interaction.reply(`-# Question: ${interaction.options.getString('question')}\n${await waApi.getShort(interaction.options.getString('question'))}`);
+    } catch (e) {
+        //console.log(e.message)
+        interaction.reply('I did not understand what you where trying to say, try asking another question. ' + e.message);
+    }
 }

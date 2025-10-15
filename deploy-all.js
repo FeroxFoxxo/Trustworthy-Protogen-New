@@ -1,20 +1,20 @@
-const { REST, Routes, SlashCommandBuilder } = require('discord.js');
-const { getRequired } = require('./config');
-const fs = require('node:fs');
-const path = require('node:path');
+import { REST, Routes, SlashCommandBuilder } from 'discord.js';
+import { getRequired } from './config';
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
 
 const clientId = getRequired('CLIENT_ID');
 const token = getRequired('TOKEN');
 
 const commands = [];
-const foldersPath = path.join(__dirname, 'commands');
-const commandFolders = fs.readdirSync(foldersPath);
+const foldersPath = join(__dirname, 'commands');
+const commandFolders = readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
-	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+	const commandsPath = join(foldersPath, folder);
+	const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
+		const filePath = join(commandsPath, file);
 		const command = require(filePath);
 		if ('data' in command && 'execute' in command) {
 			if (command.data instanceof SlashCommandBuilder){
@@ -27,6 +27,8 @@ for (const folder of commandFolders) {
 		}
 	}
 }
+
+console.log(`Setting token to ${token} to deploy all commands`);
 
 const rest = new REST().setToken(token);
 
