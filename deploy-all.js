@@ -4,8 +4,8 @@ import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-const clientId = getRequired('CLIENT_ID');
-const token = getRequired('TOKEN');
+const clientId = getRequired('clientId');
+const token = getRequired('token');
 
 const commands = [];
 const BASE_DIR = getDir(import.meta.url);

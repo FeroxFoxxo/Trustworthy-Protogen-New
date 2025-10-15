@@ -4,12 +4,12 @@ services:
     container_name: trustworthy-protogen-bot
     restart: unless-stopped
     environment:
-      - TOKEN=${token}
-      - BLOCKED_USERS=${blocked_users}
-      - WOLFRAM_API=${wolfram_api}
-      - GEMINI_API=${gemini_api}
-      - CLIENT_ID=${client_id}
-      - GUILD_ID=${guild_id}
-      - DATA_DIR=/data
+      - token=${token}
+      - blockedUsers=${blockedUsers}
+      - wolframAPI=${wolframAPI}
+      - geminiAPI=${geminiAPI}
+      - clientId=${clientId}
+      - guildId=${guildId}
+      - dataDir=/data
     volumes:
       - ./data:/data
