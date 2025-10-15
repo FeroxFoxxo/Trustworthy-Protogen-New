@@ -4,8 +4,8 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { getDataDir } from '../../config.js';
 
-const BASE_DIR = getDataDir(import.meta.url);
-const DATA_DIR = join(BASE_DIR, 'confessions');
+const baseDir = getDataDir(import.meta.url);
+const dataDir = join(baseDir, 'confessions');
 
 const ensureDir = (p) => {
     if (!existsSync(p)) {
@@ -13,11 +13,11 @@ const ensureDir = (p) => {
     }
 };
 
-ensureDir(DATA_DIR);
-ensureDir(join(DATA_DIR, 'sfw'));
-ensureDir(join(DATA_DIR, 'nsfw'));
+ensureDir(dataDir);
+ensureDir(join(dataDir, 'sfw'));
+ensureDir(join(dataDir, 'nsfw'));
 
-const filePath = join(DATA_DIR, 'confesscount.json');
+const filePath = join(dataDir, 'confesscount.json');
 
 let file;
 
@@ -94,7 +94,7 @@ export
             interaction.reply('You cannot send a blank message!');
         } else {
             const confessionNumber = number;
-            const userFilePath = join(DATA_DIR, interaction.options.getString('explicitness'), `${confessionNumber}.txt`);
+            const userFilePath = join(dataDir, interaction.options.getString('explicitness'), `${confessionNumber}.txt`);
             writeFileSync(userFilePath, interaction.user.id, 'utf-8');
 
             //let server = await interaction.client.guilds.fetch('441110395999223810');

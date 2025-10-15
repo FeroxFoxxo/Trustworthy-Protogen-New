@@ -5,13 +5,13 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { getDir } from './config.js';
 
-const clientId = getRequired('CLIENT_ID');
-const guildId = getRequired('GUILD_ID');
-const token = getRequired('TOKEN');
+const clientId = getRequired('clientId');
+const guildId = getRequired('guildId');
+const token = getRequired('token');
 
 const commands = [];
-const BASE_DIR = getDir(import.meta.url);
-const foldersPath = join(BASE_DIR, 'commands');
+const baseDir = getDir(import.meta.url);
+const foldersPath = join(baseDir, 'commands');
 const commandFolders = readdirSync(foldersPath);
 
 for (const folder of commandFolders) {

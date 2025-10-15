@@ -1,8 +1,8 @@
 import { REST, Routes } from 'discord.js';
 import { getRequired } from './config.js';
 
-const clientId = getRequired('CLIENT_ID');
-const token = getRequired('TOKEN');
+const clientId = getRequired('clientId');
+const token = getRequired('token');
 
 //import { readdirSync } from 'node:fs';
 //import { join } from 'node:path';
