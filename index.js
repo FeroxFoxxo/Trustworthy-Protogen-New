@@ -4,8 +4,9 @@ import { pathToFileURL } from 'node:url';
 import { Client, Collection, Events, GatewayIntentBits, ActivityType } from 'discord.js';
 import { getArray, getRequired, getDir } from './config.js';
 
-const token = getRequired('TOKEN');
-const blockedUsers = getArray('BLOCKED_USERS', []);
+const token = getRequired('token');
+const blockedUsers = getArray('blockedUsers', []);
+const statusMessage = getRequired('status')
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 export default client;
