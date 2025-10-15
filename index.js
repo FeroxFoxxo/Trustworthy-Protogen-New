@@ -1,7 +1,7 @@
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { Client, Collection, Events, GatewayIntentBits, ActivityType } from 'discord.js';
-import { getArray, getRequired } from './config';
+import { getArray, getRequired } from './config.js';
 
 const token = getRequired('TOKEN');
 const blockedUsers = getArray('BLOCKED_USERS', []);

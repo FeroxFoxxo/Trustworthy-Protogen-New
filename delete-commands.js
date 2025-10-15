@@ -1,5 +1,5 @@
 import { REST, Routes } from 'discord.js';
-import { getRequired } from './config';
+import { getRequired } from './config.js';
 
 const clientId = getRequired('CLIENT_ID');
 const token = getRequired('TOKEN');

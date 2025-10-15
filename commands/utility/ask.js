@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
 import WolframAlphaAPI from 'wolfram-alpha-node';
-import { getRequired } from '../../config';
+import { getRequired } from '../../config.js';
 
 const wolframAPI = getRequired('WOLFRAM_API');
 const waApi = WolframAlphaAPI(wolframAPI);
