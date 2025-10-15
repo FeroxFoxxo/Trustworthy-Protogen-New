@@ -42,7 +42,7 @@ function getRequired(key) {
 }
 
 function getDataDir(importMetaUrl) {
-  const override = getRequired('dataDir');
+  const override = get('dataDir');
   return override || getDir(importMetaUrl);
 }
 
