@@ -16,6 +16,10 @@ export const data = slashCommand;
 export async function execute(interaction) {
     let user = await interaction.options.getUser("user").fetch();
     let userAvatar = user.displayAvatarURL({ size: 4096, dynamic: true });
+    let colour;
+    let footerText;
+    let bannerURL;
+    let idk;
     if (!user.accentColor) { colour = '#1B0252'; } else { colour = user.accentColor; }
     if (!user.accentColor) { footerText = 'This user does not have an accent colour'; } else { footerText = `Accent colour is #${user.accentColor}`; }
 
