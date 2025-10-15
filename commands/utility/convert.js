@@ -1,4 +1,4 @@
-import { ContextMenuCommandBuilder, ApplicationCommandType, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, Message, Client, ActionRow, ComponentType } from 'discord.js';
+import { ContextMenuCommandBuilder, ApplicationCommandType, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ComponentType } from 'discord.js';
 
 const interaction = new ContextMenuCommandBuilder()
     .setName("Convert")
@@ -67,40 +67,40 @@ async function thing(interaction){
     const dropdown = new ActionRowBuilder()
 	.addComponents(select);
 
-	var message = interaction.targetMessage.content
+	const message = interaction.targetMessage.content
 
 //#region Conversions
-	var FtoC = message.replace(/\d+(\.\d+)?/g, (match) => {
+	const FtoC = message.replace(/\d+(\.\d+)?/g, (match) => {
 		return Math.round((parseInt(match) -32) / 1.8 * 100) / 100; //f to c
 	});
-	var CtoF = message.replace(/\d+(\.\d+)?/g, (match) => {
-		Math.round((parseFloat(match) * 1.8 + 32) * 100) / 100; //c to f
+	const CtoF = message.replace(/\d+(\.\d+)?/g, (match) => {
+		return Math.round((parseFloat(match) * 1.8 + 32) * 100) / 100; //c to f
 	});
-	var ItoCm = message.replace(/\d+(\.\d+)?/g, (match) => {
+	const ItoCm = message.replace(/\d+(\.\d+)?/g, (match) => {
 		return Math.round(parseInt(match) * 2.54 * 100) / 100; //Cm to Inch
 	});
-	var CmtoI = message.replace(/\d+(\.\d+)?/g, (match) => {
+	const CmtoI = message.replace(/\d+(\.\d+)?/g, (match) => {
 		return Math.round(parseInt(match) / 2.54 * 100) / 100; //Inch to Cm
 	});
-	var MtoKm = message.replace(/\d+(\.\d+)?/g, (match) => {
+	const MtoKm = message.replace(/\d+(\.\d+)?/g, (match) => {
 		return Math.round(parseInt(match) * 1.609344 * 100) / 100; //Miles to KM
 	});
-	var KmtoM = message.replace(/\d+(\.\d+)?/g, (match) => {
+	const KmtoM = message.replace(/\d+(\.\d+)?/g, (match) => {
 		return Math.round(parseInt(match) / 1.609344 * 100) / 100; //KM to Miles
 	});
-	var FtoM = message.replace(/(\d+)'(\d+)?"?/g, (match, feet, inches = 0) => { //Feet to Meters
+	const FtoM = message.replace(/(\d+)'(\d+)?"?/g, (match, feet, inches = 0) => { //Feet to Meters
 		return Math.round(((parseInt(feet) * 30.48 + parseInt(inches) * 2.54) / 100) * 100) / 100;
 	});
-	var MtoF = message.replace(/\d+(\.\d+)?/g, (match) => {
+	const MtoF = message.replace(/\d+(\.\d+)?/g, (match) => {
 		let totalInches = parseFloat(match) * 39.3701; // Meters to Feet
 		let feet = Math.floor(totalInches / 12);
 		let inches = Math.round(totalInches % 12);
 		return `${feet}'${inches}"`;
 	});
-	var PtoK = message.replace(/\d+(\.\d+)?/g, (match) => {
+	const PtoK = message.replace(/\d+(\.\d+)?/g, (match) => {
 		return Math.round(parseInt(match) * 0.45359237 * 100) / 100; //Pounds to KG
 	});
-	var KtoP = message.replace(/\d+(\.\d+)?/g, (match) => {
+	const KtoP = message.replace(/\d+(\.\d+)?/g, (match) => {
 		return Math.round(parseInt(match) / 0.45359237 * 100) / 100; //KG to Pounds
 	});
 //#endregion

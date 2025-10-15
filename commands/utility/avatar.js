@@ -16,6 +16,7 @@ export const data = slashCommand;
 export async function execute(interaction) {
     let user = await interaction.options.getUser("user").fetch();
     let userAvatar = user.displayAvatarURL({ size: 4096, dynamic: true });
+    let colour;
     if (!interaction.guild) { colour = '#1B0252'; } else { colour = interaction.guild.members.me.displayColor; }
 
     const embed = new EmbedBuilder()

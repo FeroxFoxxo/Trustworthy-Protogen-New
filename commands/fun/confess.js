@@ -1,10 +1,11 @@
 //#region Stuff
 import { SlashCommandBuilder, EmbedBuilder, Client, GatewayIntentBits } from 'discord.js';
-const client = require(process.cwd() + "/index.js");
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import { getDataDir } from '../../config.js';
 
-const DATA_DIR = process.env.DATA_DIR || join(__dirname, 'confessions');
+const BASE_DIR = getDataDir(import.meta.url);
+const DATA_DIR = join(BASE_DIR, 'confessions');
 
 const ensureDir = (p) => {
     if (!existsSync(p)) {
@@ -54,6 +55,10 @@ export
     //#endregion
     async function execute(interaction) {
     let image;
+    let channelId;
+    let icon;
+    let number;
+    let colour;
 
     const imageAttachment = interaction.options.getAttachment('image');
     const imageUrl = interaction.options.getString('imageurl');
@@ -92,11 +97,11 @@ export
             const userFilePath = join(DATA_DIR, interaction.options.getString('explicitness'), `${confessionNumber}.txt`);
             writeFileSync(userFilePath, interaction.user.id, 'utf-8');
 
-            //let server = await client.guilds.fetch('441110395999223810');
+            //let server = await interaction.client.guilds.fetch('441110395999223810');
             //let channel = await (server.channels.get(channelId));
             //console.log(client);
             //if (channel) channel.send();
-            await client.guilds.cache.get('441110395999223810').channels.cache.get(channelId)?.send({ embeds: [embed] });
+            await interaction.client.guilds.cache.get('441110395999223810').channels.cache.get(channelId)?.send({ embeds: [embed] });
             await interaction.reply(`Confession sent as ${interaction.options.getString('explicitness')} #${confessionNumber}`);
             if (interaction.options.getString("explicitness") === "nsfw") {
                 file.nsfw += 1;

@@ -4,12 +4,12 @@ import { getRequired } from './config.js';
 const clientId = getRequired('CLIENT_ID');
 const token = getRequired('TOKEN');
 
-import { readdirSync } from 'node:fs';
-import { join } from 'node:path';
+//import { readdirSync } from 'node:fs';
+//import { join } from 'node:path';
 
-const commands = [];
-const foldersPath = join(__dirname, 'commands');
-const commandFolders = readdirSync(foldersPath);
+//const commands = [];
+//const foldersPath = join(__dirname, 'commands');
+//const commandFolders = readdirSync(foldersPath);
 
 console.log(`Setting token to ${token} to delete commands`);
 

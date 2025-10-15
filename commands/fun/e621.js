@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 
-import { get } from 'axios';
+import axios from 'axios';
 const blacklist = ['young', 'loli', 'scat', 'watersports', 'puke', 'fart'];
 
 let slashCommand = new SlashCommandBuilder()
@@ -19,7 +19,7 @@ slashCommand["contexts"] = [0, 1, 2];
 export const data = slashCommand;
 export async function execute(interaction) {
     {
-        get(`https://e621.net/posts.json?tags=${interaction.options.getString('tags')}`, { headers: { 'User-Agent': 'e6-f/1.0' } })
+        axios.get(`https://e621.net/posts.json?tags=${interaction.options.getString('tags')}`, { headers: { 'User-Agent': 'e6-f/1.0' } })
             .then(response => {
                 let posts = response.data["posts"];
 
@@ -30,7 +30,7 @@ export async function execute(interaction) {
                     return true;
                 });
 
-                const randomPost = posts[Math.round(Math.random() * posts.length)];
+                const randomPost = posts[Math.round(Math.random() * (posts.length - 1))];
                 // const randomPost = posts;
                 const embed = new EmbedBuilder()
                     .setAuthor({ name: 'e621', url: 'https://e621.net/', iconURL: 'https://e621.net/favicon.ico' })

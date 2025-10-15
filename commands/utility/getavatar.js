@@ -8,8 +8,9 @@ interaction["integration_types"] = [0,1];
 interaction["contexts"] = [0, 1, 2];
 
 function thing(interaction){
-    user = interaction.targetUser;
+    let user = interaction.targetUser;
     let userAvatar = user.displayAvatarURL({size: 4096, dynamic: true});
+    let colour;
     if (!interaction.guild) {colour = '#1B0252'} else {colour = interaction.guild.members.me.displayColor}
     //console.log(user.id)
 
