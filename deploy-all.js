@@ -1,5 +1,5 @@
 import { REST, Routes, SlashCommandBuilder } from 'discord.js';
-import { getRequired } from './config';
+import { getRequired } from './config.js';
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 

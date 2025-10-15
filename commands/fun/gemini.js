@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { getRequired } from '../../config';
+import { getRequired } from '../../config.js';
 
 const geminiAPI = getRequired('GEMINI_API');
 import { GoogleGenerativeAI } from "@google/generative-ai";
