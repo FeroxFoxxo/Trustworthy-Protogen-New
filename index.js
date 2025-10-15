@@ -13,8 +13,8 @@ export default client;
 
 client.commands = new Collection();
 
-const BASE_DIR = getDir(import.meta.url);
-const foldersPath = join(BASE_DIR, 'commands');
+const baseDir = getDir(import.meta.url);
+const foldersPath = join(baseDir, 'commands');
 const commandFolders = readdirSync(foldersPath);
 
 for (const folder of commandFolders) {

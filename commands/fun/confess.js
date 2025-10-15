@@ -4,8 +4,8 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { getDataDir } from '../../config.js';
 
-const BASE_DIR = getDataDir(import.meta.url);
-const dataDir = join(BASE_DIR, 'confessions');
+const baseDir = getDataDir(import.meta.url);
+const dataDir = join(baseDir, 'confessions');
 
 const ensureDir = (p) => {
     if (!existsSync(p)) {

@@ -10,8 +10,8 @@ const guildId = getRequired('guildId');
 const token = getRequired('token');
 
 const commands = [];
-const BASE_DIR = getDir(import.meta.url);
-const foldersPath = join(BASE_DIR, 'commands');
+const baseDir = getDir(import.meta.url);
+const foldersPath = join(baseDir, 'commands');
 const commandFolders = readdirSync(foldersPath);
 
 for (const folder of commandFolders) {

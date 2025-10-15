@@ -9,9 +9,9 @@ function getDir(importMetaUrl) {
   return dirname(filename);
 }
 
-const BASE_DIR = getDir(import.meta.url);
+const baseDir = getDir(import.meta.url);
 
-dotenv.config({ path: path.resolve(BASE_DIR, '.env') });
+dotenv.config({ path: path.resolve(baseDir, '.env') });
 
 function get(key) {
   return process.env[key];
