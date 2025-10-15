@@ -11,7 +11,7 @@ const hasOwn = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
 function get(key, fallback = undefined) {
   const env = process.env[key];
 
-  if (env !== undefined && env !== '') {
+  if (env) {
     return env;
   }
 

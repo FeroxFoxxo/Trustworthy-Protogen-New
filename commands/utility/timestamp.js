@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 
 let slashCommand = new SlashCommandBuilder()
   .setName("timestamp")
@@ -36,17 +36,14 @@ slashCommand["integration_types"] = [0,1];
 slashCommand["contexts"] = [0, 1, 2];
 
 
-module.exports = {
-  data: slashCommand,
-  async execute(interaction){
-    {
-        //var etime = 1750750477
-        // Timestamp be like <t:numbers:type> Type can be t (Short time), T (Long time), d (Short date), D (Long date), f (Long date, short time), F (Longer date, short time) and R (Reletive)
+export const data = slashCommand;
+export async function execute(interaction) {
+  {
+    //var etime = 1750750477
+    // Timestamp be like <t:numbers:type> Type can be t (Short time), T (Long time), d (Short date), D (Long date), f (Long date, short time), F (Longer date, short time) and R (Reletive)
+    const ctime = new Date(`${interaction.options.getString('date')}T${interaction.options.getNumber('hour').toString().padStart(2, '0')}:${interaction.options.getNumber('minute').toString().padStart(2, '0')}:00Z`);
+    var etime = Math.floor(ctime.getTime() / 1000);
 
-        const ctime = new Date(`${interaction.options.getString('date')}T${interaction.options.getNumber('hour').toString().padStart(2, '0')}:${interaction.options.getNumber('minute').toString().padStart(2, '0')}:00Z`);
-        var etime = Math.floor(ctime.getTime() / 1000)
-
-        interaction.reply({ content: `<t:${etime}:${interaction.options.getString('type')}>\n\`\`<t:${etime}:${interaction.options.getString('type')}>\`\``, ephemeral: true });
-    }
+    interaction.reply({ content: `<t:${etime}:${interaction.options.getString('type')}>\n\`\`<t:${etime}:${interaction.options.getString('type')}>\`\``, ephemeral: true });
   }
 }

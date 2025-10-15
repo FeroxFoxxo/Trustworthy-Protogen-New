@@ -1,16 +1,17 @@
-const { REST, Routes } = require('discord.js');
-const { getRequired } = require('./config');
+import { REST, Routes } from 'discord.js';
+import { getRequired } from './config';
 
 const clientId = getRequired('CLIENT_ID');
 const token = getRequired('TOKEN');
 
-const fs = require('node:fs');
-const path = require('node:path');
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
 
 const commands = [];
-const foldersPath = path.join(__dirname, 'commands');
-const commandFolders = fs.readdirSync(foldersPath);
+const foldersPath = join(__dirname, 'commands');
+const commandFolders = readdirSync(foldersPath);
 
+console.log(`Setting token to ${token} to delete commands`);
 
 const rest = new REST().setToken(token);
 

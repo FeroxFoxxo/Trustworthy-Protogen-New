@@ -1,4 +1,4 @@
-const { ContextMenuCommandBuilder, ApplicationCommandType, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, Message, Client, ActionRow, ComponentType } = require('discord.js');
+import { ContextMenuCommandBuilder, ApplicationCommandType, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, Message, Client, ActionRow, ComponentType } from 'discord.js';
 
 const interaction = new ContextMenuCommandBuilder()
     .setName("Convert")
@@ -144,7 +144,5 @@ async function thing(interaction){
 
 }
 
-module.exports = {
-    data: interaction,
-    execute: thing
-}
+export const data = interaction;
+export const execute = thing;
